@@ -4,7 +4,9 @@ set -e
 # Cambia de rama si se expecifica una como variable de entorno
 if [ "$TYPE" != "CORP" ]; then
 	echo "Copiando archivo de configuracion de master"
-	rm /workspace/sym/engines/*
+	rm -rf /workspace/sym/engines
+	cd /workspace/sym
+	mkdir engines
 	cp /workspace/sym/samples/tc-corp-000.properties /workspace/sym/engines/config.properties
 
 	if [ "$ENGINE_NAME" != "" ]; then
@@ -24,7 +26,9 @@ if [ "$TYPE" != "CORP" ]; then
 	fi
 else
 	echo "Copiando archivo de configuracion de esclavo"
-	rm /workspace/sym/engines/*
+	rm -rf /workspace/sym/engines
+	cd /workspace/sym
+	mkdir engines
 	cp /workspace/sym/samples/tc-store-000.properties /workspace/sym/engines/config.properties
 
 	if [ "$ENGINE_NAME" != "" ]; then
