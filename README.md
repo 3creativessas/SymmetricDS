@@ -9,7 +9,7 @@ git clone https://github.com/3creativessas/SymmetricDS.git
 
 docker build \
  --rm \
- -t 3creatives/symmetricds \
+ -t 3creativessas/symmetricds \
  -f Dockerfile .
 ```
 
@@ -49,7 +49,7 @@ docker run -d \
 --env GROUP_ID=corp \
 --env EXTERNAL_ID=000 \
 --restart always \
--i 3creatives/symmetricds
+-i 3creativessas/symmetricds
 ```
 
 ### Iniciar el contenedor - STORE (Esclavo)
@@ -69,7 +69,7 @@ docker run -d \
 --env GROUP_ID=store \
 --env EXTERNAL_ID=001 \
 --restart always \
--i 3creatives/symmetricds
+-i 3creativessas/symmetricds
 ```
 
 ## Configuracion inicial de sincronizacion de un nodo maestro y un nodo esclavo
@@ -148,8 +148,8 @@ values('corp_2_one_store', 'corp', 'store', 'column','STORE_ID=:EXTERNAL_ID or O
 
 Se crea el enrutamiento (Routers) de los triggers
 
--- Send container_type to all stores
 ```
+-- Send container_type to all stores
 insert into sym_trigger_router 
 (trigger_id,router_id,initial_load_order,last_update_time,create_time)
 values('container_type','corp_2_store', 100, current_timestamp, current_timestamp);
