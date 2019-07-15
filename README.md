@@ -15,6 +15,7 @@ docker build \
 
 ## Parametros
 
+* TYPE: Tipo de nodo, CORP para el nodo principal o STORE para los nodos esclavos
 * ENGINE_NAME: Nombre del nodo
 * SYNC_URL: URL de sincronizacion del nodo CORP
 * HOST: Host de la base de datos
@@ -38,6 +39,7 @@ Para iniciar el contenedor en produccion ejecute el siguiente comando:
 docker run -d \
 -p 31415:31415 \
 --name symmetricds_corp \
+--env TYPE=CORP \
 --env ENGINE_NAME=corp-000 \
 --env SYNC_URL=http://XXXXXX:31415/sync/corp-000 \
 --env HOST=xxxxx.ccdj4e2qthfq.us-east-1.rds.amazonaws.com \
@@ -57,6 +59,7 @@ Para iniciar el contenedor en produccion ejecute el siguiente comando:
 docker run -d \
 -p 31420:31415 \
 --name symmetricds_store \
+--env TYPE=STORE \
 --env ENGINE_NAME=store-001 \
 --env REGISTRATION_URL=http://3.92.70.173:31415/sync/corp-000 \
 --env HOST=xxxxx.ccdj4e2qthfq.us-east-1.rds.amazonaws.com \

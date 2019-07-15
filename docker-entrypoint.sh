@@ -3,28 +3,7 @@ set -e
 
 # Cambia de rama si se expecifica una como variable de entorno
 if [ "$TYPE" != "CORP" ]; then
-	echo "Copiando archivo de configuracion de master"
-	rm -rf /workspace/sym/engines
-	cd /workspace/sym
-	mkdir engines
-	cp /workspace/sym/samples/tc-corp-000.properties /workspace/sym/engines/config.properties
 
-	if [ "$ENGINE_NAME" != "" ]; then
-		echo "SET engine.name TO $ENGINE_NAME"
-		perl -pi -e "s[engine.name=][engine.name=$ENGINE_NAME]g" /workspace/sym/engines/config.properties
-	else
-		echo "SET engine.name TO corp-000"
-		perl -pi -e "s[engine.name=][engine.name=corp-000]g" /workspace/sym/engines/config.properties
-	fi
-
-	if [ "$SYNC_URL" != "" ]; then
-		echo "SET sync.url TO $SYNC_URL"
-		perl -pi -e "s[sync.url=][sync.url=$SYNC_URL]g" /workspace/sym/engines/config.properties
-	else
-		echo "SET sync.url TO http://localhost:31415/sync/corp-000"
-		perl -pi -e "s[sync.url=][sync.url=http://localhost:31415/sync/corp-000]g" /workspace/sym/engines/config.properties
-	fi
-else
 	echo "Copiando archivo de configuracion de esclavo"
 	rm -rf /workspace/sym/engines
 	cd /workspace/sym
@@ -46,6 +25,31 @@ else
 		echo "SET registration.url TO http://localhost:31415/sync/corp-000"
 		perl -pi -e "s[registration.url=][registration.url=http://localhost:31415/sync/corp-000]g" /workspace/sym/engines/config.properties
 	fi
+
+else
+
+	echo "Copiando archivo de configuracion de master"
+	rm -rf /workspace/sym/engines
+	cd /workspace/sym
+	mkdir engines
+	cp /workspace/sym/samples/tc-corp-000.properties /workspace/sym/engines/config.properties
+
+	if [ "$ENGINE_NAME" != "" ]; then
+		echo "SET engine.name TO $ENGINE_NAME"
+		perl -pi -e "s[engine.name=][engine.name=$ENGINE_NAME]g" /workspace/sym/engines/config.properties
+	else
+		echo "SET engine.name TO corp-000"
+		perl -pi -e "s[engine.name=][engine.name=corp-000]g" /workspace/sym/engines/config.properties
+	fi
+
+	if [ "$SYNC_URL" != "" ]; then
+		echo "SET sync.url TO $SYNC_URL"
+		perl -pi -e "s[sync.url=][sync.url=$SYNC_URL]g" /workspace/sym/engines/config.properties
+	else
+		echo "SET sync.url TO http://localhost:31415/sync/corp-000"
+		perl -pi -e "s[sync.url=][sync.url=http://localhost:31415/sync/corp-000]g" /workspace/sym/engines/config.properties
+	fi
+
 fi
 
 # Cambia las variablas de conexiona a BD
