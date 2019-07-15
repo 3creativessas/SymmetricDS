@@ -1,4 +1,5 @@
-FROM ubuntu:16.04
+#FROM ubuntu:16.04
+FROM 2chat/ubuntu:xenial
 
 MAINTAINER Andres Rodriguez <ar@3creatives.com.co>
 
