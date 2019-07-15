@@ -35,8 +35,10 @@ RUN wget -O sym.zip https://sourceforge.net/projects/symmetricds/files/symmetric
 RUN unzip sym.zip
 RUN rm sym.zip
 
-COPY docker-entrypoint.sh docker-entrypoint.sh
-COPY samples/* /sym/samples
+RUN mv symmetric-server-3.10.3 sym
+
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY /workspace/samples/* /workspace/sym/samples
 
 ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
