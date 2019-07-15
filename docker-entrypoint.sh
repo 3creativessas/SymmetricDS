@@ -3,7 +3,7 @@ set -e
 
 # Cambia de rama si se expecifica una como variable de entorno
 if [ "$TYPE" != "CORP" ]; then
-	echo "Copiando archivo de configuracion de esclavo"
+	echo "Copiando archivo de configuracion de master"
 	rm /sym/engines/*
 	cp /sym/samples/tc-corp-000.properties /sym/engines/config.properties
 
@@ -22,7 +22,26 @@ if [ "$TYPE" != "CORP" ]; then
 		echo "SET sync.url TO http://localhost:31415/sync/corp-000"
 		perl -pi -e "s[sync.url=][sync.url=http://localhost:31415/sync/corp-000]g" /sym/engines/config.properties
 	fi
+else
+	echo "Copiando archivo de configuracion de esclavo"
+	rm /sym/engines/*
+	cp /sym/samples/tc-store-000.properties /sym/engines/config.properties
 
+	if [ "$ENGINE_NAME" != "" ]; then
+		echo "SET engine.name TO $ENGINE_NAME"
+		perl -pi -e "s[engine.name=][engine.name=$ENGINE_NAME]g" /sym/engines/config.properties
+	else
+		echo "SET engine.name TO store-001"
+		perl -pi -e "s[engine.name=][engine.name=store-001]g" /sym/engines/config.properties
+	fi
+
+	if [ "$REGISTRATION_URL" != "" ]; then
+		echo "SET registration.url TO $REGISTRATION_URL"
+		perl -pi -e "s[registration.url=][registration.url=$REGISTRATION_URL]g" /sym/engines/config.properties
+	else
+		echo "SET registration.url TO http://localhost:31415/sync/corp-000"
+		perl -pi -e "s[registration.url=][registration.url=http://localhost:31415/sync/corp-000]g" /sym/engines/config.properties
+	fi
 fi
 
 # Cambia las variablas de conexiona a BD
