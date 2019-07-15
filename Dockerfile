@@ -11,6 +11,7 @@ RUN wget -O sym.zip https://sourceforge.net/projects/symmetricds/files/symmetric
 RUN unzip sym.zip
 RUN rm sym.zip
 
+COPY docker-entrypoint.sh docker-entrypoint.sh
 COPY samples/* /sym/samples
 
 ENV TZ=America/Bogota
