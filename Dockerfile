@@ -44,7 +44,7 @@ COPY samples/tc-store-001.properties /workspace/sym/samples/
 ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-ENTRYPOINT ["./workspace/docker-entrypoint.sh"]
+ENTRYPOINT ["/workspace/docker-entrypoint.sh"]
 
 RUN ["chmod", "+x", "/workspace/docker-entrypoint.sh"]
 
