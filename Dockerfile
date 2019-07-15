@@ -38,7 +38,8 @@ RUN rm sym.zip
 RUN mv symmetric-server-3.10.3 sym
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
-COPY samples/* /workspace/sym/samples/
+COPY samples/tc-corp-000.properties /workspace/sym/samples/
+COPY samples/tc-store-001.properties /workspace/sym/samples/
 
 ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
