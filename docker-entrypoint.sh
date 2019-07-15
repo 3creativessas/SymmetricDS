@@ -29,7 +29,7 @@ else
 	rm -rf /workspace/sym/engines
 	cd /workspace/sym
 	mkdir engines
-	cp /workspace/sym/samples/tc-store-000.properties /workspace/sym/engines/config.properties
+	cp /workspace/sym/samples/tc-store-001.properties /workspace/sym/engines/config.properties
 
 	if [ "$ENGINE_NAME" != "" ]; then
 		echo "SET engine.name TO $ENGINE_NAME"
