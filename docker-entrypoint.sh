@@ -58,7 +58,7 @@ perl -pi -e "s[TC-DB][$DB]g" /workspace/sym/engines/config.properties
 echo "SET USER TO $USER"
 perl -pi -e "s[db.user=][db.user=$USER]g" /workspace/sym/engines/config.properties
 
-echo "SET PASSWORD TO $PASSWORD"
+#echo "SET PASSWORD TO $PASSWORD"
 perl -pi -e "s[db.password=][db.password=$PASSWORD]g" /workspace/sym/engines/config.properties
 
 # Cambia la informacion del nodo
@@ -72,6 +72,6 @@ perl -pi -e "s[external.id=][external.id=$EXTERNAL_ID]g" /workspace/sym/engines/
 
 # Iniciando servicio
 echo "START SymmetricDS"
-./workspace/sym/bin/sym
+sh /workspace/sym/bin/sym 
 
 exec "$@"
