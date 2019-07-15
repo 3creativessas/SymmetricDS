@@ -47,7 +47,6 @@ perl -pi -e "s[group.id=][group.id=$GROUP_ID]g" /sym/engines/config.properties
 echo "SET EXTERNAL_ID TO $EXTERNAL_ID"
 perl -pi -e "s[external.id=][external.id=$EXTERNAL_ID]g" /sym/engines/config.properties
 
-
 # Iniciando servicio
 echo "START SymmetricDS"
 ./sym/bin/sym
