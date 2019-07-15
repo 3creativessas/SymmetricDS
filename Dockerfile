@@ -28,6 +28,8 @@ RUN export JAVA_HOME
 RUN apt-get update
 RUN apt-get -y install curl
 
+RUN apt-get -y install vim
+
 RUN apt-get install -y unzip
 RUN apt-get install -y wget
 
