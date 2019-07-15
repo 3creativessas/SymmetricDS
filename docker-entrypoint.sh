@@ -70,7 +70,6 @@ perl -pi -e "s[db.password=][db.password=$PASSWORD]g" /workspace/sym/engines/con
 echo "SET GROUP_ID TO $GROUP_ID"
 perl -pi -e "s[group.id=][group.id=$GROUP_ID]g" /workspace/sym/engines/config.properties
 
-## 000
 echo "SET EXTERNAL_ID TO $EXTERNAL_ID"
 perl -pi -e "s[external.id=][external.id=$EXTERNAL_ID]g" /workspace/sym/engines/config.properties
 
