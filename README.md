@@ -109,14 +109,12 @@ insert into sym_node_group (node_group_id) values ('store');
 
 Links entre nodos
 
--- Corp sends changes to Store when Store pulls from Corp
 ```
+-- Corp sends changes to Store when Store pulls from Corp
 insert into sym_node_group_link (source_node_group_id, target_node_group_id, data_event_action) 
 values ('corp', 'store', 'W');
-```
 
 -- Store sends changes to Corp when Store pushes to Corp
-```
 insert into sym_node_group_link (source_node_group_id, target_node_group_id, data_event_action) 
 values ('store', 'corp', 'P');
 ```
@@ -131,22 +129,18 @@ values('container_type','container_type','container_type',current_timestamp,curr
 
 Se crea el enrutamiento (Routers)
 
--- Default router sends all data from corp to store 
 ```
+-- Default router sends all data from corp to store 
 insert into sym_router 
 (router_id,source_node_group_id,target_node_group_id,router_type,create_time,last_update_time)
 values('corp_2_store', 'corp', 'store', 'default',current_timestamp, current_timestamp);
-```
 
 -- Default router sends all data from store to corp
-```
 insert into sym_router 
 (router_id,source_node_group_id,target_node_group_id,router_type,create_time,last_update_time)
 values('store_2_corp', 'store', 'corp', 'default',current_timestamp, current_timestamp);
-```
 
 -- Column match router will subset data from corp to specific store
-```
 insert into sym_router 
 (router_id,source_node_group_id,target_node_group_id,router_type,router_expression,create_time,last_update_time)
 values('corp_2_one_store', 'corp', 'store', 'column','STORE_ID=:EXTERNAL_ID or OLD_STORE_ID=:EXTERNAL_ID',current_timestamp, current_timestamp);
