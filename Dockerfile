@@ -37,14 +37,14 @@ RUN rm sym.zip
 
 RUN mv symmetric-server-3.10.3 sym
 
-COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY docker-entrypoint.sh docker-entrypoint.sh
 COPY samples/tc-corp-000.properties /workspace/sym/samples/
 COPY samples/tc-store-001.properties /workspace/sym/samples/
 
 ENV TZ=America/Bogota
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-ENTRYPOINT ["./docker-entrypoint.sh"]
+ENTRYPOINT ["./workspace/docker-entrypoint.sh"]
 
-RUN ["chmod", "+x", "/docker-entrypoint.sh"]
+RUN ["chmod", "+x", "/workspace/docker-entrypoint.sh"]
 
