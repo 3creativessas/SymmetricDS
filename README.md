@@ -109,12 +109,17 @@ insert into sym_node_group (node_group_id) values ('store');
 
 Links entre nodos
 
-```
 -- Corp sends changes to Store when Store pulls from Corp
-insert into sym_node_group_link (source_node_group_id, target_node_group_id, data_event_action) values ('corp', 'store', 'W');
+```
+insert into sym_node_group_link (source_node_group_id, target_node_group_id, data_event_action) 
+values ('corp', 'store', 'W');
+```
 
 -- Store sends changes to Corp when Store pushes to Corp
-insert into sym_node_group_link (source_node_group_id, target_node_group_id, data_event_action) values ('store', 'corp', 'P');```
+```
+insert into sym_node_group_link (source_node_group_id, target_node_group_id, data_event_action) 
+values ('store', 'corp', 'P');
+```
 
 Crea el trigger de la tabla a sincronizar (Para este ejemplo la tabla 'container_type')
 
@@ -126,18 +131,22 @@ values('container_type','container_type','container_type',current_timestamp,curr
 
 Se crea el enrutamiento (Routers)
 
-```
 -- Default router sends all data from corp to store 
+```
 insert into sym_router 
 (router_id,source_node_group_id,target_node_group_id,router_type,create_time,last_update_time)
 values('corp_2_store', 'corp', 'store', 'default',current_timestamp, current_timestamp);
+```
 
 -- Default router sends all data from store to corp
+```
 insert into sym_router 
 (router_id,source_node_group_id,target_node_group_id,router_type,create_time,last_update_time)
 values('store_2_corp', 'store', 'corp', 'default',current_timestamp, current_timestamp);
+```
 
 -- Column match router will subset data from corp to specific store
+```
 insert into sym_router 
 (router_id,source_node_group_id,target_node_group_id,router_type,router_expression,create_time,last_update_time)
 values('corp_2_one_store', 'corp', 'store', 'column','STORE_ID=:EXTERNAL_ID or OLD_STORE_ID=:EXTERNAL_ID',current_timestamp, current_timestamp);
@@ -145,8 +154,8 @@ values('corp_2_one_store', 'corp', 'store', 'column','STORE_ID=:EXTERNAL_ID or O
 
 Se crea el enrutamiento (Routers) de los triggers
 
-```
 -- Send container_type to all stores
+```
 insert into sym_trigger_router 
 (trigger_id,router_id,initial_load_order,last_update_time,create_time)
 values('container_type','corp_2_store', 100, current_timestamp, current_timestamp);
@@ -155,3 +164,13 @@ insert into sym_trigger_router
 (trigger_id,router_id,initial_load_order,last_update_time,create_time)
 values('container_type','store_2_corp', 200, current_timestamp, current_timestamp);
 ```
+
+## Cargue inicial
+
+Para enviar la informacion inicial (existente) en el nodo CORP a los nodos STORE, cambie en la tabla 'sym_node_security' del nodo CORP el campo 'initial_load_enabled' de 0 a 1, del nodo a forzar la sincronizacion inicial, la consulta SQL deberia ser algo similar a esto:
+
+```
+UPDATE `sym_node_security` SET `initial_load_enabled` = '1' WHERE `sym_node_security`.`node_id` = '000';
+```
+
+Luego de la sincronizacion el campo 'initial_load_enabled' volvera automaticamente a 0
