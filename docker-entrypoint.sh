@@ -83,6 +83,9 @@ perl -pi -e "s[TC-HOST][$HOST]g" /workspace/sym/engines/config.properties
 echo "SET DB TO $DB"
 perl -pi -e "s[TC-DB][$DB]g" /workspace/sym/engines/config.properties
 
+echo "SET TC-SQLITE TO $DB_SQLITE"
+perl -pi -e "s[TC-SQLITE][$DB_SQLITE]g" /workspace/sym/engines/config.properties
+
 echo "SET USER TO $USER"
 perl -pi -e "s[db.user=][db.user=$USER]g" /workspace/sym/engines/config.properties
 

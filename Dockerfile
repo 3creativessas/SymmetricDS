@@ -25,6 +25,8 @@ RUN apt-get update && \
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
 
+RUN mkdir /BD
+
 RUN apt-get update
 RUN apt-get -y install curl
 
