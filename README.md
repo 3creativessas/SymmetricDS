@@ -72,6 +72,24 @@ docker run -d \
 -i 3creativessas/symmetricds
 ```
 
+### Iniciar el contenedor - STORE SQLITE (Esclavo)
+Para iniciar el contenedor en produccion ejecute el siguiente comando:
+
+```
+docker run -d \
+-p 31420:31415 \
+--name symmetricds_store \
+--env TYPE=STORE_SQLITE \
+--env ENGINE_NAME=store-001 \
+--env REGISTRATION_URL=http://3.92.70.173:31415/sync/corp-000 \
+--env DB=nd_store \
+--env PASSWORD=xxxx \
+--env GROUP_ID=store \
+--env EXTERNAL_ID=001 \
+--restart always \
+-i 3creativessas/symmetricds
+```
+
 ## Configuracion inicial de sincronizacion de un nodo maestro y un nodo esclavo
 
 La configuracion de SymmetricDS se realiza a traves de la base de datos. Para esto ejecute los siguientes comandos SQL en la base del nodo CORP (Principal)

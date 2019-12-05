@@ -1,8 +1,32 @@
 #!/bin/bash
 set -e
 
-# Cambia de rama si se expecifica una como variable de entorno
-if [ "$TYPE" != "CORP" ]; then
+# Configura el nodo segun su tipo
+if [ "$TYPE" == "STORE_SQLITE" ]; then
+
+	echo "Copiando archivo de configuracion de esclavo SQLITE"
+	rm -rf /workspace/sym/engines
+	cd /workspace/sym
+	mkdir engines
+	cp /workspace/sym/samples/tc-store_sqlite-001.properties /workspace/sym/engines/config.properties
+
+	if [ "$ENGINE_NAME" != "" ]; then
+		echo "SET engine.name TO $ENGINE_NAME"
+		perl -pi -e "s[engine.name=][engine.name=$ENGINE_NAME]g" /workspace/sym/engines/config.properties
+	else
+		echo "SET engine.name TO store-001"
+		perl -pi -e "s[engine.name=][engine.name=store-001]g" /workspace/sym/engines/config.properties
+	fi
+
+	if [ "$REGISTRATION_URL" != "" ]; then
+		echo "SET registration.url TO $REGISTRATION_URL"
+		perl -pi -e "s[registration.url=][registration.url=$REGISTRATION_URL]g" /workspace/sym/engines/config.properties
+	else
+		echo "SET registration.url TO http://localhost:31415/sync/corp-000"
+		perl -pi -e "s[registration.url=][registration.url=http://localhost:31415/sync/corp-000]g" /workspace/sym/engines/config.properties
+	fi
+
+elif [ "$TYPE" != "CORP" ]; then
 
 	echo "Copiando archivo de configuracion de esclavo"
 	rm -rf /workspace/sym/engines
